@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+signed main() {
+  int n, m, k;
+  cin >> n >> m >> k;
+  multiset<int> st;
+  for (int i = 0; i < n; i++) {
+    int x;
+    cin >> x;
+    st.insert(x);
+  }
+  int ct = 0;
+  vector<int> v(m);
+  for (int i = 0; i < m;i++)
+    cin >> v[i];
+  sort(v.begin(), v.end());
+  
+  for (int i = 0; i < m;i++)
+  {
+    int x = v[i];
+    auto it = st.lower_bound(x - k);
+    if (abs(x - *it) <= k)
+    {
+      ct++;
+      st.erase(it);
+    }
+    }
+  cout << ct << endl;
+}

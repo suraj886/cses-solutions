@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long 
+signed main() {
+  int n;
+  cin >> n;
+  vector<int> v(n);
+  for (int i = 0; i < n;i++) {
+    cin >> v[i];
+  }
+  sort(v.begin(), v.end());
+  int sum = 0;
+  for (int i = 0; i < n;i++) {
+    int low = v[i], high = v[i] + sum;
+    if(low - sum > 1) {
+      cout << sum + 1;
+      return 0;
+    }
+    sum = high;
+  }
+  cout << sum + 1 << endl;
+}

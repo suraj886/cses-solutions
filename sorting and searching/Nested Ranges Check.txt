@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>  
+using namespace std;
+#define int long long
+int mod = 1e9 + 7;
+void fun1(vector<vector<int>>&v) {
+  
+  multiset<int> ms;
+  int n = v.size();
+  for (int i = 0; i < n;i++) {
+    ms.insert(v[i][1]);
+  }
+  vector<int> ans(n);
+  for (int i = 0; i < n;i++) {
+    auto it = ms.find(v[i][1]);
+    ms.erase(it);
+    if(!ms.empty() && v[i][1] >= *(ms.begin()) )
+      ans[v[i][2]] = 1;
+  }
+  for(auto it: ans)
+    cout << it << " ";
+  cout << endl;
+}
+void fun2(vector<vector<int>>&v) {
+  int n = v.size();
+  // sort(v.begin(), v.end());
+  int maxi = 0;
+  vector<int> ans(n);
+  for(auto w: v) {
+    // cout << w[0] << " " <<w[1] << " " << w[2] << endl;
+    if(w[1] <= maxi)
+      ans[w[2]] = 1;
+    maxi = max(maxi, w[1]);
+  }
+  for(auto i: ans)
+    cout << i << " ";
+}
+void solve() {
+  int n;
+  cin >> n;
+  vector<vector<int>> v(n, vector<int>(3));
+  for (int i = 0; i < n;i++)
+  {
+    cin >> v[i][0] >> v[i][1];
+    v[i][2] = i;
+  }
+  sort(v.begin(), v.end(), [](auto a, auto b)
+       {
+    if(a[0] != b[0])
+      return a[0] < b[0];
+    return a[1] > b[1]; });
+  fun1(v);
+  fun2(v);
+}
+signed main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+    setprecision(12);
+    
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+    {
+      solve();
+  }
+}

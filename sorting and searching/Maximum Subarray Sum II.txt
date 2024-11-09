@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int mod = 1e9 + 7;
+signed main(){
+    int n, a, b;
+    cin >> n >> a >> b;
+    vector<int> v(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> v[i];
+        v[i] += v[i - 1];
+    }
+    multiset<int> ms;
+    // ms.insert(0);
+    int ans = v[a];
+    for (int i = a ; i <= n; i++){
+        ms.insert(v[i - a]);
+        if(i>b){
+            ms.erase(ms.find(v[i - b -1]));
+        }
+        auto it = ms.begin();
+        int temp = 0;
+        temp =  (v[i] - (*it));
+        ans = max(ans, temp);
+    }
+    cout << ans << endl;
+}

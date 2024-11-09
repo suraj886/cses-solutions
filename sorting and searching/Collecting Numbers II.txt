@@ -1,0 +1,78 @@
+#include <bits/stdc++.h>  
+using namespace std;
+#define int long long
+int mod = 998244353;
+int cont(vector<int>&w , int a) {
+    int n = w.size() - 1;
+    int temp = 0;
+    if(a != 1 && w[a-1] > w[a])
+        temp++;
+    if(a != n && w[a+1] < w[a])
+        temp++;
+    return temp;
+}
+void fun(vector<int>&w , int a, int b , int &ans) {
+    int n = w.size() - 1;
+    if(a > b)
+        swap(a, b);
+    if(b - a == 1) {
+        if(a != 1 && w[a-1] > w[a])
+            ans--;
+        if(b != n && w[b+1] < w[b])
+            ans--;
+        if(w[a] > w[b])
+            ans--;
+ 
+        swap(w[a], w[b]);
+ 
+        if(a != 1 && w[a-1] > w[a])
+            ans++;
+        if(b != n && w[b+1] < w[b])
+            ans++;
+        if(w[a] > w[b])
+            ans++;
+ 
+    } else {
+        int temp = cont(w, a) + cont(w, b);
+        ans -= temp;
+        swap(w[a], w[b]);
+        temp = cont(w, a) + cont(w, b);
+        ans += temp;
+    }
+}
+void solve() {
+  int n; cin>>n;
+  int q;
+  cin >> q;
+  vector<int> v(n+1), w(n+1);
+  for (int i = 1; i <= n;i++) {
+      int x;
+      cin >> x;
+      v[i] = x;
+      w[x] = i;
+  }
+  int ans = 1;
+  for (int i = 1; i < n;i++) {
+    if(w[i] > w[i+1])
+        ans++;
+  }
+  while(q--) {
+    int a, b;
+    cin >> a >> b;
+    swap(v[a], v[b]);
+    a = v[a], b = v[b];
+    fun(w, a, b,ans);
+    cout << ans << endl;
+  }
+}
+signed main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+  int tc = 1;
+  // cin >> tc;
+  while (tc--) {
+    solve();
+  }
+}

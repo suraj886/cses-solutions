@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+set<int> st;
+void rec(int i) {
+  cout << i << "  ";
+  st.erase(i);
+  if(st.size()==1 ) {
+    cout << *(st.begin()) << " ";
+    return;
+  }
+  auto it = st.lower_bound(i);
+  if(it==st.end()) it = st.begin();
+  it++;
+  if(it==st.end()) it = st.begin();
+  int x = *it;
+  rec(x);
+}
+signed main() {
+  int n;
+  cin >> n;
+  if(n==1) {
+    cout << 1 << endl;
+    return 0;
+  }
+  for (int i = 1; i <= n;i++)
+    st.insert(i);
+  rec(2);
+}

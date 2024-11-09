@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>  
+using namespace std;
+// #define int long long
+int mod = 1e9 + 7;
+vector<long long> v;
+void solve() {
+  long long n, x;
+  cin >> n >> x;
+  // cout << x << endl;
+  v.resize(n,0);
+  for(auto &i: v)
+    cin >> i;
+  unordered_map<long long, vector<pair<int, int>>> mp;
+  for (int i = 0; i < n;i++)
+    for (int j = i + 1; j < n;j++) {
+      mp[v[i] + v[j]].push_back({i + 1, j + 1});
+    }
+  
+  for(auto &[a,v]: mp) {
+    int f = x - a;
+    if(f <=0 || mp.find(f) ==  mp.end()) continue;
+    auto &w = mp[f];
+ 
+    for(auto &p1: v) {
+      for(auto &p2: w) {
+        if(p1.first != p2.first && p1.first != p2.second && p1.second != p2.first && p1.second != p2.second) {
+          cout << p1.first << " " << p1.second << " " << p2.first << " " << p2.second;
+          return;
+        }
+      }
+    }
+  }
+  cout << "IMPOSSIBLE";
+}
+int main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+    setprecision(12);
+    
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+    {
+      solve();
+  }
+}

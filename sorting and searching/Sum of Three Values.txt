@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>  
+using namespace std;
+#define int long long
+int mod = 1e9 + 7;
+void solve() {
+  int n, x;
+  cin >> n >> x;
+  vector<pair<int,int>> v(n);
+  for (int i = 0; i < n;i++)
+  {
+    cin >> v[i].first;
+    v[i].second = i+1;
+  }
+  sort(v.begin(), v.end());
+  for (int i = 0; i < n - 2;i++) {
+    int f = x - v[i].first;
+    if(f <= 0)
+      continue;
+    int j = i + 1, k = n - 1 ;
+    while(j < k) {
+      if(v[j].first + v[k].first == f) {
+        cout << v[i].second <<" "<< v[j].second <<" "<< v[k].second << endl;
+        return;
+      }
+      if(v[j].first + v[k].first > f)
+        k--;
+      else
+        j++;
+    }
+  }
+  cout << "IMPOSSIBLE";
+}
+signed main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+    setprecision(12);
+    
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+    {
+      solve();
+  }
+}

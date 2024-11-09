@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>  
+using namespace std;
+#define int long long
+int mod = 1e9 + 7;
+void solve() {
+  int x, n;
+  cin >> x >> n;
+  set<int> st;
+  multiset<int> ans;
+  st.insert(0);
+  st.insert(x);
+  ans.insert(x);
+  while (n--)
+  {
+    int x;
+    cin >> x;
+    auto it = st.lower_bound(x);
+    int up = *it;
+    it--;
+    int low = *it;
+    st.insert(x);
+    it = ans.find(up - low);
+    ans.erase(it);
+    ans.insert(x - low);
+    ans.insert(up - x);
+    // cout << low << " " << up << " "<<endl;
+    // // cout << *(ans.rbegin()) << " ";
+    // for(auto it: st)
+    //   cout << it << " ";
+    // cout << endl;
+    // for(auto it: ans)
+    //   cout << it << " ";
+    // cout << endl;
+    // cout << endl;
+    cout << *(ans.rbegin()) << " ";
+  }
+  
+}
+signed main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+    setprecision(12);
+    
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+    {
+      solve();
+  }
+}

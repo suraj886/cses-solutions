@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>  
+using namespace std;
+// #define int long long
+int mod = 1e9 + 7;
+void solve() {
+  int n;
+  cin >> n;
+  vector<pair<int, int>> vp(n);
+  for(auto &[a,b] : vp)
+    cin >> a >> b;
+  sort(vp.begin(), vp.end(), [&](auto a, auto b){
+     int ans1 = a.second - 2 * a.first + b.second - b.first;
+     int ans2 = b.second - 2 * b.first + a.second - a.first;
+     return ans1 > ans2;
+  });
+  long long ans = 0, ct = 0;
+  for(auto [a,b] : vp) {
+    // cout << a << " " << b << endl;
+    ct += a;
+    ans += b - ct;
+  }
+  cout << ans << endl;
+}
+int main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+  #endif
+    setprecision(12);
+    
+    int tc = 1;
+    // cin >> tc;
+    while (tc--)
+    {
+      solve();
+  }
+}

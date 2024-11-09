@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long 
+int rec(int i, vector<int>&start, vector<int>&end , vector<int>&dp) {
+  int n = start.size();
+  if(i>=n)
+    return 0;
+  if(dp[i]!=-1)
+    return dp[i];
+  // int ans = 0;
+  int ans = rec(i + 1, start,end, dp);
+  auto it = lower_bound(start.begin(), start.end(), end[i] + 1);
+  int j = it -start.begin();
+  ans = max(ans, 1 + rec(j, start,end, dp));
+  return dp[i] = ans;
+} 
+signed main() {
+  int n;
+  cin >> n;
+  vector<pair<int, int>> vp(n);
+  for (int i = 0; i < n;i++) {
+    int x, y;
+    cin >> x >> y;
+    vp[i] = {x, y-1};
+  }
+  sort(vp.begin(), vp.end());
+ 
+  vector<int> start(n), end(n);
+  for (int i = 0; i < n;i++) {
+    start[i] = vp[i].first;
+    end[i] = vp[i].second;
+  }
+ 
+  vector<int> dp(n, -1);
+  cout << rec(0, start,end, dp);
+} 
